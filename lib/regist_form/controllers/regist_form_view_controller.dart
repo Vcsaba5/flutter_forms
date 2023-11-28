@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forms/regist_form/models/user.dart';
+import 'package:forms/regist_form/views/details_view.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class RegistFormViewController extends GetxController {
   TextEditingController firstname = TextEditingController();
@@ -8,7 +11,17 @@ class RegistFormViewController extends GetxController {
 
   DateTime birthDate = DateTime.now();
 
-  String selectedGender = "";
+  bool male = false;
+
+  List carBands =["LADA","CITROEN","ISUZU","SUZUKI","DACIA",];
+
+  get elements => [
+    Text(carBands[0], style: TextStyle(fontSize: 30),),
+    Text(carBands[1], style: TextStyle(fontSize: 30),),
+    Text(carBands[2], style: TextStyle(fontSize: 30),),
+    Text(carBands[3], style: TextStyle(fontSize: 30),),
+    Text(carBands[4], style: TextStyle(fontSize: 30),),
+  ];
 
   void showDatePicker() {
     Get.bottomSheet(
@@ -28,4 +41,25 @@ class RegistFormViewController extends GetxController {
       ),
     );
   }
+
+  String selectedCarBand = "";
+
+  void setSelectedCarBand(int index) {
+    selectedCarBand = carBands[index];
+  }
+
+  List<String> favoriteColors = [];
+
+  void sendDataToTheNextView() {
+    User user = User(
+      firstname: firstname.text,
+      lastname: lastname.text,
+      date: birthDate,
+      male: male,
+      favoriteColors: favoriteColors.map((e) => e.toString()).toList(),
+      favoriteCarBrand: selectedCarBand,
+    );
+    Get.to(DetailsView(user: user,));
+  }
 }
+

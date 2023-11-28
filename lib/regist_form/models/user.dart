@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class User {
   String firstname;
   String lastname;
@@ -13,4 +15,13 @@ class User {
     required this.favoriteColors,
     required this.favoriteCarBrand,
   });
+  void sendDataToTheNextView() {
+    User user = User(
+      firstname: firstname, 
+      lastname: lastname, 
+      date: date, 
+      male: male, 
+      favoriteColors: favoriteColors, 
+      favoriteCarBrand: favoriteCarBrand);
+  }
 }
